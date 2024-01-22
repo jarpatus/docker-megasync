@@ -1,0 +1,18 @@
+services:
+  megasync:
+    build:
+      context: app
+    container_name: megasync
+    environment:
+      UID: 126473
+      GID: 126473
+      USERNAME: xxx
+      PASSWORD: xxx
+      FIX_CONF: "true"
+      FIX_DATA: "true"
+      ENABLE_FILE: .megasync-enable
+    volumes:
+      - ./config/:/config
+      - /etc/machine-id:/etc/machine-id:ro
+      - /mnt/backup/Mega/:/data
+    restart: unless-stopped
