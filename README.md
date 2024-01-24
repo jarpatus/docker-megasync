@@ -1,27 +1,13 @@
 # docker-megaio-sync
 Dockerized mega.io sync client using official megacmd.
 
-# Installation
-Use Docker Compose, example docker-compose.yml:
+# Build
+To build image, clone repository to src/, copy example docker-compose.yaml to cwd and build:
+
 ```
-services:
-  megasync:
-    build:
-      context: app
-    container_name: megasync
-    environment:
-      UID: 126473
-      GID: 126473
-      USERNAME: xxx
-      PASSWORD: xxx
-      FIX_CONF: "true"
-      FIX_DATA: "true"
-      ENABLE_FILE: .megasync-enable
-    volumes:
-      - ./config/:/config
-      - /etc/machine-id:/etc/machine-id:ro
-      - /mnt/backup/Mega/:/data
-    restart: unless-stopped
+git clone https://github.com/jarpatus/docker-megaio-sync.git src
+cp src/examples/docker-compose.yaml .
+docker-compose build
 ```
 
 ## Environment variables

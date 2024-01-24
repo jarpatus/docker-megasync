@@ -1,7 +1,7 @@
 services:
   megasync:
     build:
-      context: app
+      context: src
     container_name: megasync
     environment:
       UID: 126473
