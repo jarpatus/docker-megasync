@@ -1,4 +1,4 @@
-# docker-megaio-sync
+# docker-megasync
 Dockerized mega.io sync client using official megacmd.
 
 # Build

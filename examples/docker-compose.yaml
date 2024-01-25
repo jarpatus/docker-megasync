@@ -15,4 +15,5 @@ services:
       - ./config/:/config
       - /etc/machine-id:/etc/machine-id:ro
       - /mnt/backup/Mega/:/data
+    network_mode: bridge
     restart: unless-stopped
