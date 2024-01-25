@@ -20,7 +20,8 @@ fi
 # Add user for megacmd
 if ! grep -q -e "^megacmd:" /etc/passwd; then
   echo Add user for megacmd...
-  adduser --shell /sbin/nologin --disabled-password --uid $UID megacmd
+  addgroup -g $GID megacmd
+  adduser -s /sbin/nologin -D -u $UID -G megacmd megacmd
 fi
 
 # Setup config
