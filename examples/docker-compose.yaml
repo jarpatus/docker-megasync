@@ -13,7 +13,6 @@ services:
       ENABLE_FILE: .megasync-enable
     volumes:
       - ./config/:/config
-      - /etc/machine-id:/etc/machine-id:ro
       - /mnt/backup/Mega/:/data
     network_mode: bridge
     restart: unless-stopped

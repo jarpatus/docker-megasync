@@ -23,7 +23,6 @@ docker-compose build
 You should use volumes or bind mounts for all following folders:
 * ```/config``` - Session files for megacmd  
 * ```/data``` - Folder to be syncced to mega.io
-* ```/etc/machine-id```- Unique machine ID  
 
 # Considerations
 * For UID and GID you can choose values from existing user on docker host or then something non-existing above 65536. You could use dockerized samba with similar UID and GID to totally decouple users from host users, but everything depends on your needs.
