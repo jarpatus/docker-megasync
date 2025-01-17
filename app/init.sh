@@ -28,5 +28,11 @@ if [ "$FIX_DATA" = "true" ]; then
   chown -R megacmd:megacmd /data
 fi
 
+# Generate machine-id
+if [ ! -f /etc/machine-id ]; then
+  echo Generate machine-id...
+  uuidgen > /etc/machine-id
+fi
+
 # Run main script as megacmd user
 exec su megacmd -s /bin/sh -c /app/main.sh
