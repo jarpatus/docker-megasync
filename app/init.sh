@@ -1,5 +1,15 @@
 #!/bin/sh
 
+# SIGTERM handler, gracefully log out and quit megacmd server
+on_term() {
+  echo Got sigterm, logging out and quitting megacmd server...
+  tail --pid=`pidof mega-cmd-server` -f /dev/null &
+  mega-logout
+  mega-quit
+  wait
+  exit 0
+}
+
 # Check enable file
 echo Check if enabled...
 if [ -n "$ENABLE_FILE" ] && [ ! -f /data/$ENABLE_FILE ]; then
@@ -7,32 +17,21 @@ if [ -n "$ENABLE_FILE" ] && [ ! -f /data/$ENABLE_FILE ]; then
   exit 2
 fi
 
-# Add user for megacmd
-if ! grep -q -e "^megacmd:" /etc/passwd; then
-  echo Add user for megacmd...
-  addgroup -g $GID megacmd
-  adduser -s /sbin/nologin -D -u $UID -G megacmd megacmd
+# Login to mega (will spawn megacmd server)
+echo Logging in...
+mega-login $USERNAME $PASSWORD
+if [ $? -ne 0 -a $? -ne 54 ]; then
+  echo Login failed: $?
+  exit 1
 fi
 
-# Setup config
-echo Setup config...
-if [ "$FIX_CONF" = "true" ]; then
-  chown -R megacmd:megacmd /config
-  chmod 0700 /config
-fi
-ln -s -f /config /home/megacmd/.megaCmd
+# Start sync
+echo Starting sync...
+mega-sync /data /
 
-# Setup data
-echo Setup data...
-if [ "$FIX_DATA" = "true" ]; then
-  chown -R megacmd:megacmd /data
-fi
-
-# Generate machine-id
-if [ ! -f /etc/machine-id ]; then
-  echo Generate machine-id...
-  uuidgen > /etc/machine-id
-fi
-
-# Run main script as megacmd user
-exec su megacmd -s /bin/sh -c /app/main.sh
+# Wait for megacmd server to quit uncommanded (sigterm trap will handle gracefull quit)
+echo Wait for megacmd server to quit...
+trap on_term TERM
+tail --pid=`pidof mega-cmd-server` -f /dev/null &
+wait
+exit 1

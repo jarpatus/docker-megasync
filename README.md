@@ -15,8 +15,6 @@ docker-compose build
 * ```GID``` - GID for megacmd group.
 * ```USERNAME``` - Your mega.io username.
 * ```PASSWORD``` - Your mega.io password.
-* ```FIX_CONF``` - Fix owner of /config to match UID:GID on container start.
-* ```FIX_DATA``` - Fix owner of /data to match UID:GID on container start.
 * ```ENABLE_FILE``` - If set, a file of this name must exist under /data in order to sync to start.
 
 ## Mounts
