@@ -1,6 +1,10 @@
 # Start from Alpine Linux
 FROM alpine:3.21
 
+# Build args
+ARG UID=1000
+ARG GID=1000
+
 # Add packages
 RUN apk add --no-cache coreutils megacmd uuidgen
 

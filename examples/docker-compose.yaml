@@ -2,10 +2,11 @@ services:
   megasync:
     build:
       context: src
+      args:
+        UID: 126473
+        GID: 126473
     container_name: megasync
     environment:
-      UID: 126473
-      GID: 126473
       USERNAME: xxx
       PASSWORD: xxx
       ENABLE_FILE: .megasync-enable

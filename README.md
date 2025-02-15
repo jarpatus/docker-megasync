@@ -10,9 +10,11 @@ cp src/examples/docker-compose.yaml .
 docker-compose build
 ```
 
-## Environment variables
+## Build args
 * ```UID``` - UID for megacmd user.
 * ```GID``` - GID for megacmd group.
+
+## Environment variables
 * ```USERNAME``` - Your mega.io username.
 * ```PASSWORD``` - Your mega.io password.
 * ```ENABLE_FILE``` - If set, a file of this name must exist under /data in order to sync to start.
