@@ -10,8 +10,8 @@ services:
     build:
       context: src
       args:
-        UID: 3645
-        GID: 3645
+        UID: 1000
+        GID: 1000
     container_name: megasync
     environment:
       USERNAME: xxx
