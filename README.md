@@ -1,20 +1,34 @@
-# docker-megasync
-Dockerized mega.io sync client using official megacmd.
+# Megasync rootless
+Rootless mega.io sync client using official megacmd.
 
-# Build
-To build image, clone repository to src/, copy example docker-compose.yaml to cwd and build:
+# Compose file
 
+## Example
 ```
-git clone https://github.com/jarpatus/docker-megaio-sync.git src
-cp src/examples/docker-compose.yaml .
-docker-compose build
+services:
+  megasync:
+    build:
+      context: src
+      args:
+        UID: 3645
+        GID: 3645
+    container_name: megasync
+    environment:
+      USERNAME: xxx
+      PASSWORD: xxx
+      ENABLE_FILE: .megasync-enable
+    volumes:
+      - ./config/:/config
+      - /mnt/mega/:/data
+    network_mode: bridge
+    restart: unless-stopped
 ```
 
 ## Build args
 * ```UID``` - UID for megacmd user.
 * ```GID``` - GID for megacmd group.
 
-## Environment variables
+## Environment
 * ```USERNAME``` - Your mega.io username.
 * ```PASSWORD``` - Your mega.io password.
 * ```ENABLE_FILE``` - If set, a file of this name must exist under /data in order to sync to start.
